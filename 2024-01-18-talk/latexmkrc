@@ -1,0 +1,5 @@
+$pdf_mode=4;
+
+ensure_path('TEXINPUTS','../tex/');
+ensure_path('LUAINPUTS','../tex/');
+ensure_path('OSFONTDIR', '../tex/');

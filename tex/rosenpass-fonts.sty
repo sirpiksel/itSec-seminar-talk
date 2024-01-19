@@ -1,0 +1,33 @@
+\ProvidesPackage{rosenpass-fonts}
+
+\RequirePackage{mathtools}%to be loaded before fontspec
+\RequirePackage{fontspec}
+
+\directlua{luaotfload.add_fallback
+("codefallback",
+	{"NotoSansMono:mode=harf"}
+)}
+\setmonofont{NotoSansMono}[Scale=.9]
+
+\setsansfont[
+	BoldFont = *-Bold,
+	ItalicFont = *-Italic,
+	BoldItalicFont = *-BoldItalic,
+	FontFace = {sb}{n}{Nunito-SemiBold},
+	FontFace = {sb}{it}{*-SemiBoldItalic},
+	FontFace = {md}{n}{*-Medium},
+	FontFace = {md}{it}{*-MediumItalic},
+	FontFace = {lt}{n}{*-Light},
+	FontFace = {lt}{it}{*-LightItalic},
+	FontFace = {xlt}{n}{*-ExtraLight},
+	FontFace = {xlt}{it}{*-ExtraLightItalic},
+	FontFace = {xb}{n}{*-ExtraBold},
+	FontFace = {xb}{it}{*-ExtraBoldItalic},
+	FontFace = {k}{n}{*-Black},
+	FontFace = {k}{it}{*-BlackItalic}
+]{Nunito}
+\renewcommand*{\familydefault}{\sfdefault}
+
+\usepackage{unicode-math}
+
+\endinput

@@ -1,0 +1,198 @@
+\ProvidesPackage{beamerthemerosenpass}
+
+\RequirePackage{rosenpass-fonts}
+\RequirePackage{rosenpass-colors}
+\RequirePackage{rosenpass-diagram}
+
+\RequirePackage{tcolorbox}
+\RequirePackage{relsize}
+
+\newcommand*{\conference}[1]{\def\@conference{#1}}
+\conference{}
+\def\insertconference{\@conference}
+
+\newcommand*{\homepage}[1]{\def\@homepage{#1}}
+\homepage{}
+\def\inserthomepage{\@homepage}
+
+\newcommand*{\social}[1]{\def\@social{#1}}
+\social{}
+\def\insertsocial{\@social}
+
+\newcommand*{\contributor}[1]{\def\@contributor{#1}}
+\contributor{}
+\def\insertcontributor{\@contributor}
+
+\newcommand*{\funding}[1]{\def\@funding{#1}}
+\funding{}
+\def\insertfunding{\@funding}
+
+\setbeamertemplate{title page}{%
+\leavevmode
+\vbox to \paperheight{%
+\leavevmode\begin{beamercolorbox}[wd=\paperwidth,ht=0pt]{title background}%
+\raisebox{-\height}[0pt][0pt]{%
+	\includegraphics[width=\paperwidth]{RosenPass-clouds}
+}
+\end{beamercolorbox}
+\begin{beamercolorbox}[wd=\dimexpr\paperwidth-6ex,sep=3ex,]{title page}
+  \begin{columns}[onlytextwidth]
+
+    \begin{column}{.5\linewidth}
+      \raggedright
+      {\usebeamerfont{homepage}\inserthomepage}\par
+      {\usebeamerfont{social}\insertsocial}
+    \end{column}
+
+    \begin{column}{.5\linewidth}
+      \raggedleft
+      {\usebeamerfont{conference}\insertconference}\par
+      {\usebeamerfont{date}\insertdate}
+    \end{column}
+
+  \end{columns}
+\end{beamercolorbox}
+
+\vspace{\ht\strutbox}
+\begin{beamercolorbox}[wd=\dimexpr\paperwidth]{title page}
+\centering
+\raisebox{-.6\height}[0pt]{%
+	\includegraphics[height=.47\paperheight]{RosenPass-Logo}%
+	}%
+\end{beamercolorbox}
+\begin{beamercolorbox}[wd=\dimexpr\paperwidth]{title page}
+\centering
+	\begin{tcolorbox}[width=\textwidth,colbacktitle=rosenpass-gray,colframe=rosenpass-gray,coltitle=white,title=\ifx\insertsubtitle\@empty\inserttitle\else\insertsubtitle\fi,rounded corners,boxrule=.2ex,halign=center,halign title=center,fonttitle=\usebeamerfont{title},boxsep=1ex,toptitle=1ex,bottomtitle=1ex,]
+	{\usebeamerfont{author}\insertauthor}\par
+	{
+    \ifdefvoid{\insertcontributor}{}{\vspace{2px}}
+    \usebeamerfont{contributor}\insertcontributor
+  }\par
+	{\usebeamerfont{institute}\insertinstitute}\par
+  {
+    \ifdefvoid{\insertfunding}{}{\vspace{5px}}
+    \usebeamerfont{funding}\insertfunding
+  }\par
+	\end{tcolorbox}
+\end{beamercolorbox}
+\vspace{\baselineskip}
+}
+}
+
+\ExplSyntaxOn
+
+\box_new:N \g__ptxcd_logo_box
+\hbox_gset:Nn \g__ptxcd_logo_box {\includegraphics[height=.2\paperheight]{RosenPass-Logo}}
+
+\defbeamertemplate*{frametitle}{rosenpass}{
+%	\leavevmode
+\nointerlineskip
+	\vspace*{-\dp\strutbox}
+	\usebeamercolor{frametitle}
+	\makebox[\linewidth][r]{\rlap{\raisebox{-.95\height}[0pt][0pt]{\box_use:N \g__ptxcd_logo_box}}\hspace{-.5em}}\par\nointerlineskip
+\begin{tcolorbox}[width=\dim_eval:n {\paperwidth-\box_wd:N \g__ptxcd_logo_box - 1em-\beamer@leftmargin},arc=.1ex,colback=bg,coltext=fg,fontupper=\usebeamerfont{frametitle},sharp~corners=west,grow~to~left~ by=\beamer@leftmargin,left=\beamer@leftmargin,after=,capture=hbox]
+\parbox{\dim_eval:n {\paperwidth-\box_wd:N \g__ptxcd_logo_box - 1em-\beamer@leftmargin-1em}}{
+\raggedright
+\strut\insertframetitle\strut
+ \ifx\insertframesubtitle\@empty\else\\
+ \strut\insertframesubtitle\strut
+ \fi
+ }
+ \end{tcolorbox}
+ \vspace{\dp\strutbox}
+}
+
+
+\setbeamersize{text~margin~right=\dim_eval:n {\box_wd:N \g__ptxcd_logo_box + 1em}}
+
+\ExplSyntaxOff
+\defbeamertemplate*{footline}{rosenpass}{%
+%\nointerlineskip
+\leavevmode
+  \begin{beamercolorbox}[wd=\textwidth, rightskip=\dimexpr-.5\beamer@rightmargin+2em,sep=2ex]{footline}%
+	\usebeamerfont{page number in head/foot}%
+	\hfill%
+% \usebeamertemplate*{frame footer}
+	\usebeamertemplate{frame numbering}
+	\hspace*{1cm}
+  \end{beamercolorbox}%
+}
+
+\defbeamertemplate*{headline}{rosenpas}{
+	\vspace*{\dp\strutbox}
+	\begin{beamercolorbox}[leftskip=\beamer@leftmargin]{headline}
+	\usebeamerfont{headline}
+%	\insertshorttitle
+\ifx\insertshortsubtitle\@empty\insertshorttitle\else\insertshortsubtitle\fi
+	\end{beamercolorbox}
+}
+
+\tcbset{frame-number/.style={colback=rosenpass-lightblue,frame empty,top=.25ex,bottom=.25ex,left=.25ex,right=.25ex,colupper=rosenpass-gray,fontupper=\usebeamerfont{frame number},before=,after=,box align=base}}
+
+\defbeamertemplate*{frame numbering}{rosenpass}{%
+	\tcbox[frame-number]{\makebox[5ex]{\insertframenumber/\inserttotalframenumber}}%
+}
+
+\defbeamertemplate*{frame footer}{rosenpass}{%
+	\usebeamercolor{frame footer}\insertshorttitle
+}
+
+\setbeamerfont{frame numer}{size=\small}
+\setbeamerfont{conference}{series=\bfseries,size=\footnotesize}
+\setbeamerfont{homepage}{size=\footnotesize}
+\setbeamerfont{social}{size=\scriptsize\relscale{.90}}
+\setbeamerfont{date}{size=\footnotesize}
+\setbeamerfont{title}{size=\normalsize,series=\fontseries{md}\selectfont}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{contributor}{size=\scriptsize}
+\setbeamerfont{institute}{size=\normalsize, series=\bfseries}
+\setbeamerfont{funding}{size=\scriptsize\relscale{.90}}
+\setbeamerfont{frametitle}{series=\fontseries{md}\selectfont}
+\setbeamerfont{headline}{size=\footnotesize}
+
+\setbeamercolor{block title}{bg=rosenpass-gray,fg=white}
+\setbeamercolor{frametitle}{bg=rosenpass-gray,fg=white}
+\setbeamercolor{block body}{fg=rosenpass-gray,bg=white}
+\setbeamercolor{frame footer}{fg=rosenpass-gray}
+\setbeamercolor{headline}{fg=rosenpass-lightgray}
+
+
+\setbeamercolor{footnoteblock}{bg=rosenpass-lightblue,fg=black}
+
+
+
+
+\defbeamertemplate*{footnote}{rosenpass}
+{
+  \parindent 1em\noindent%
+  \@hangfrom{\hbox to 1em{\insertfootnotemark\hfill}}{\raggedright\insertfootnotetext\par}%
+}
+
+
+\renewcommand*{\footnoterule}{}
+
+\AddToHook{cmd/footnoterule/after}[rosenpass-footnotesetup]{
+	 \global\setbox\beamer@footins\vbox{%
+		\begin{beamercolorbox}[wd=\paperwidth,leftskip=\beamer@leftmargin,dp=3\baselineskip]{footnoteblock}
+		\vskip\baselineskip
+		\leavevmode
+		\begin{beamercolorbox}{}
+			\unvbox\beamer@footins
+		\end{beamercolorbox}
+		\end{beamercolorbox}
+		\vskip-3\baselineskip
+	 }
+}
+
+\urlstyle{same}
+
+\renewcommand*{\maketitle}{\ifbeamer@inframe\titlepage\else\frame[plain,noframenumbering]{\titlepage}\fi}
+
+\setbeamercolor{structure}{use=normal text, fg=normal text.fg}
+
+\setbeamertemplate{itemize items}{\textbullet}
+
+\setbeamertemplate{navigation symbols}{}
+
+\endinput
+

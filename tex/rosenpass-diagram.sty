@@ -1,0 +1,26 @@
+\ProvidesPackage{rosenpass-diagram}
+
+\RequirePackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+\tikzset{
+	rosenpass-diagram/.style={
+		very thick,
+		shorten > = 1pt,
+		shorten < = 1pt,
+		>={Straight Barb[round,length=3pt,width=5pt]},
+		rounded corners,
+		inner ysep=1pt,
+		every node/.style={execute at begin node=\strut,font=\fontseries{sb}\selectfont\small,inner ysep=1pt,},
+		line cap=round,
+		rosenpass dashed/.style={dash pattern=on 1pt off 2pt},
+		initiator/.style={rosenpass-pink,very thick,every node/.append style={above,fill=rosenpass-pink,text=white,minimum width=10ex}},
+		responder/.style={rosenpass-orange,very thick,every node/.append style={above,fill=rosenpass-orange,text=white,minimum width=10ex}},
+		response/.style={<-,very thick,rosenpass-orange,rosenpass dashed,line cap=round,text=rosenpass-gray},
+		request/.style={->,very thick,rosenpass-pink,rosenpass dashed,line cap=round,,text=rosenpass-gray},
+		result/.style={rosenpass-gray,every node/.append style={below,fill=rosenpass-gray,text=white,minimum width=22ex,}},
+	},
+	 boxed/.style = {draw, rectangle, fill=white, align = center, rounded corners},
+}
+
+\endinput
