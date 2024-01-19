@@ -1,0 +1,110 @@
+\documentclass{rosenpass-beamer}
+
+\usepackage[british,UKenglish,USenglish,english,german]{babel}
+\usepackage[autostyle]{csquotes}
+\usepackage{emoji}
+\let\say\enquote
+
+\usepackage{xurl}
+
+\urlstyle{same}
+
+\usepackage{textcomp}
+
+\usetikzlibrary{positioning,decorations.pathreplacing,svg.path}
+
+\definecolor{RPPink}{rgb}{274,4,132}
+\definecolor{RPOrange}{rgb}{255, 166, 48}
+\definecolor{RPAquamarine}{rgb}{255, 166, 48}
+\definecolor{RPLightGray}{rgb}{160, 159, 164}
+\definecolor{RPTurquoise}{rgb}{114, 161, 229}
+
+\title{Rosenpass}
+\subtitle{PQC Wireguard as a new VPN}
+\author{
+Philip Kastura-Sahl
+}
+\institute{Universität Heidelberg}
+
+\conference{IT-Security Seminar}
+\date{18-01-2024}
+
+\parskip\smallskipamount
+
+\ExplSyntaxOn
+\newcommand*{\sourcename}{Source}
+\newcommand*{\sourcesep}{:~}
+\newcommand*{\ImgSource}[2]{
+
+\hbox_set:Nn \l_tmpa_box {#1}
+
+\hbox_set:Nn \l_tmpa_box {
+\dim_set:Nn \l_tmpa_dim {\box_ht:N \l_tmpa_box}
+\hbox_unpack_drop:N \l_tmpa_box \rotatebox{90}{\parbox{\l_tmpa_dim}{\tiny\sourcename\sourcesep#2}}
+}
+\box_use:N \l_tmpa_box
+}
+\ExplSyntaxOff
+
+% reduce itemize indent
+\setlength{\leftmargini}{0pt}
+
+\usepackage{biblatex}
+\addbibresource{sources.bib}
+
+
+% namePartPictureSetup
+\ExplSyntaxOn
+\int_new:N \l__ptxcd_namepart_int
+\fp_new:N \l__ptxcd_namepos_fp
+\def\namepartsep{1.1}
+\dim_new:N \l__ptxcd_namepart_sep_dim
+\dim_set:Nn \l__ptxcd_namepart_sep_dim  {3mm}
+
+\newcommand*{\namepart}[2][0]{
+	\int_set:Nn \l__ptxcd_namepart_int {\clist_count:n {#2}}
+	\begin{scope}[xshift=#1]
+	\fp_set:Nn \l__ptxcd_namepos_fp {\l__ptxcd_namepart_int / 2}
+	\keyval_parse:nnn {\__ptxcd_namepart_item:nn {}}{ \__ptxcd_namepart_item:nn } {#2}
+	\end{scope}
+}
+
+\newcommand*{\SingleNamePart}[4][0]{
+		\node[rounded~corners,fill=rosenpass-lightblue] (#2) at (#1,-.7) {\ttfamily#3};
+		\node[above] at (#2.north) {\footnotesize #4};
+}
+
+\cs_new:Nn \__ptxcd_namepart_item:nn {
+	\fp_sub:Nn \l__ptxcd_namepos_fp {1}
+	\node[rounded~corners,fill=rosenpass-lightblue] (#1) at (0,\fp_use:N \l__ptxcd_namepos_fp * \namepartsep) {\ttfamily#1};
+	\node[above] at (#1.north) {\footnotesize #2};
+}
+
+
+\newcommand*{\namebraceleft}[2] {
+	\draw[decorate]([xshift=-\l__ptxcd_namepart_sep_dim]#2.south~west)--([xshift=-\l__ptxcd_namepart_sep_dim]#1.north~west) ;
+}
+
+\newcommand*{\namebraceright}[2]{
+	\draw[decorate]([xshift=\l__ptxcd_namepart_sep_dim]#1.north~east) --([xshift=\l__ptxcd_namepart_sep_dim]#2.south~east);
+}
+\ExplSyntaxOff
+
+\graphicspath{{}{graphics/}}
+
+\begin{document}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Begin Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% End Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{framenumber}{\totalcontentframes}
+
+\end{document}
