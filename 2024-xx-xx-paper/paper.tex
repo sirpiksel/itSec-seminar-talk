@@ -1,98 +1,63 @@
-\documentclass{rosenpass-beamer}
+\documentclass[sigconf]{acmart}
 
-\usepackage[british,UKenglish,USenglish,english,german]{babel}
-\usepackage[autostyle]{csquotes}
-\usepackage{emoji}
-\let\say\enquote
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
 
-\usepackage{xurl}
-
-\urlstyle{same}
-
-\usepackage{textcomp}
-
-\usetikzlibrary{positioning,decorations.pathreplacing,svg.path}
-
-\definecolor{RPPink}{rgb}{274,4,132}
-\definecolor{RPOrange}{rgb}{255, 166, 48}
-\definecolor{RPAquamarine}{rgb}{255, 166, 48}
-\definecolor{RPLightGray}{rgb}{160, 159, 164}
-\definecolor{RPTurquoise}{rgb}{114, 161, 229}
-
+\acmConference[ITSEC]{IT-Security Seminar}{WiSe 2023/24}{Heidelberg}
+\begin{document}
 \title{Rosenpass}
 \subtitle{PQC Wireguard as a new VPN}
-\author{
-Philip Kastura-Sahl
-}
-\institute{Universität Heidelberg}
 
-\conference{IT-Security Seminar}
-\date{18-01-2024}
-
-\parskip\smallskipamount
-
-\ExplSyntaxOn
-\newcommand*{\sourcename}{Source}
-\newcommand*{\sourcesep}{:~}
-\newcommand*{\ImgSource}[2]{
-
-\hbox_set:Nn \l_tmpa_box {#1}
-
-\hbox_set:Nn \l_tmpa_box {
-\dim_set:Nn \l_tmpa_dim {\box_ht:N \l_tmpa_box}
-\hbox_unpack_drop:N \l_tmpa_box \rotatebox{90}{\parbox{\l_tmpa_dim}{\tiny\sourcename\sourcesep#2}}
-}
-\box_use:N \l_tmpa_box
-}
-\ExplSyntaxOff
-
-% reduce itemize indent
-\setlength{\leftmargini}{0pt}
-
-\usepackage{biblatex}
-\addbibresource{sources.bib}
-
-
-% namePartPictureSetup
-\ExplSyntaxOn
-\int_new:N \l__ptxcd_namepart_int
-\fp_new:N \l__ptxcd_namepos_fp
-\def\namepartsep{1.1}
-\dim_new:N \l__ptxcd_namepart_sep_dim
-\dim_set:Nn \l__ptxcd_namepart_sep_dim  {3mm}
-
-\newcommand*{\namepart}[2][0]{
-	\int_set:Nn \l__ptxcd_namepart_int {\clist_count:n {#2}}
-	\begin{scope}[xshift=#1]
-	\fp_set:Nn \l__ptxcd_namepos_fp {\l__ptxcd_namepart_int / 2}
-	\keyval_parse:nnn {\__ptxcd_namepart_item:nn {}}{ \__ptxcd_namepart_item:nn } {#2}
-	\end{scope}
+\author{Philip Kastura-Sahl}
+\email{philip.kastura-sahl@stud.uni-heidelberg.de}
+\affiliation{%
+  \institution{Ruprecht-Karls-Universität Heidelberg}
+  \city{Heidelberg}
+  \country{Germany}
 }
 
-\newcommand*{\SingleNamePart}[4][0]{
-		\node[rounded~corners,fill=rosenpass-lightblue] (#2) at (#1,-.7) {\ttfamily#3};
-		\node[above] at (#2.north) {\footnotesize #4};
-}
+\renewcommand{\shortauthors}{Philip Kastura-Sahl}
 
-\cs_new:Nn \__ptxcd_namepart_item:nn {
-	\fp_sub:Nn \l__ptxcd_namepos_fp {1}
-	\node[rounded~corners,fill=rosenpass-lightblue] (#1) at (0,\fp_use:N \l__ptxcd_namepos_fp * \namepartsep) {\ttfamily#1};
-	\node[above] at (#1.north) {\footnotesize #2};
-}
+\begin{abstract}
+% TODO: write proper abstract
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget ex ex. Etiam ultricies mi sit amet sem malesuada, nec egestas est gravida. Cras eu sagittis est. Nunc dignissim massa vel mauris varius pulvinar. Duis quis massa quis quam commodo pulvinar et ac quam. In hac habitasse platea dictumst. Nunc eu lacus mi. Donec a efficitur leo.
+\end{abstract}
 
 
-\newcommand*{\namebraceleft}[2] {
-	\draw[decorate]([xshift=-\l__ptxcd_namepart_sep_dim]#2.south~west)--([xshift=-\l__ptxcd_namepart_sep_dim]#1.north~west) ;
-}
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10002978.10002979.10002980</concept_id>
+       <concept_desc>Security and privacy~Key management</concept_desc>
+       <concept_significance>300</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002978.10002979.10002981.10011602</concept_id>
+       <concept_desc>Security and privacy~Digital signatures</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002978.10002979.10002981.10011745</concept_id>
+       <concept_desc>Security and privacy~Public key encryption</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+ </ccs2012>
+\end{CCSXML}
 
-\newcommand*{\namebraceright}[2]{
-	\draw[decorate]([xshift=\l__ptxcd_namepart_sep_dim]#1.north~east) --([xshift=\l__ptxcd_namepart_sep_dim]#2.south~east);
-}
-\ExplSyntaxOff
+\ccsdesc[300]{Security and privacy~Key management}
+\ccsdesc[500]{Security and privacy~Digital signatures}
+\ccsdesc[500]{Security and privacy~Public key encryption}
 
-\graphicspath{{}{graphics/}}
+\keywords{Post-quantum cryptography, Key-Encapsulation Method, Rosenpass, Wireguard, Crystals-Kyber, NIST}
 
-\begin{document}
+\begin{teaserfigure}
+      \includegraphics[width=.2\textwidth]{graphics/RosenPass-Logo.pdf}
+\end{teaserfigure}
+
+%% TODO: add correct date for paper
+\received[Talk]{18 January 2024}
+\received[Paper]{32 Columbus 2024}
 
 \maketitle
 
@@ -100,11 +65,48 @@ Philip Kastura-Sahl
 % Begin Document
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Lorem Ipsum}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget ex ex. Etiam ultricies mi sit amet sem malesuada, nec egestas est gravida. Cras eu sagittis est. Nunc dignissim massa vel mauris varius pulvinar. Duis quis massa quis quam commodo pulvinar et ac quam. In hac habitasse platea dictumst. Nunc eu lacus mi. Donec a efficitur leo.
+
+Mauris a sodales ligula, id dictum arcu. Morbi ante nisl, vestibulum sed mauris vitae, vestibulum efficitur lacus. Maecenas laoreet lorem quis dui posuere convallis. Curabitur ac justo vel enim dictum rutrum id et nunc. Nunc porta lacus quis odio dignissim, quis tristique libero fringilla. Cras eleifend dictum molestie. Quisque ut leo nec ipsum suscipit imperdiet lobortis et turpis. Proin eget luctus nibh. Maecenas in finibus turpis. Integer dictum felis in purus malesuada finibus.
+
+\section{Suspendisse orci}
+Suspendisse orci purus, tincidunt sit amet metus eu, lacinia vehicula nulla. Phasellus lobortis ullamcorper mi vitae fringilla. Integer ante risus, condimentum at turpis nec, fringilla laoreet ante. Ut fringilla congue vestibulum. Cras placerat aliquet dolor, in consectetur elit dignissim id. Curabitur varius, erat et auctor cursus, urna leo ullamcorper ex, ut dictum nunc nisi eu mauris. Cras porttitor felis sed sem consectetur rhoncus nec a mauris. Curabitur mollis nisl nec purus bibendum efficitur. Integer posuere eleifend bibendum. Nulla dapibus, mauris nec consequat pulvinar, ante turpis mattis sapien, id fringilla enim diam ac nibh. Phasellus facilisis dolor ac est rhoncus, in dignissim lectus tincidunt.
+
+\subsection{In ac malesuada}
+In ac malesuada eros. Donec eu quam nec quam commodo eleifend. Vestibulum ut ultrices tellus. Praesent varius rhoncus nisi at aliquet. Donec scelerisque, tellus quis auctor congue, mi nunc pharetra est, ut mollis orci dolor quis odio. Proin pellentesque eget quam vel tempus. Etiam viverra turpis id malesuada ultrices. Suspendisse sit amet lorem vel elit pretium sollicitudin. Suspendisse tincidunt semper urna, nec condimentum lorem consectetur ut. Aliquam elit nisl, vehicula vitae sollicitudin eget, dictum non eros.
+
+Vivamus ornare ex eget risus placerat placerat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque eu risus ut nunc bibendum rhoncus non a urna. Nam sollicitudin, nibh ut laoreet vestibulum, dui lorem semper turpis, at rhoncus nulla sem molestie erat. Nulla eget interdum sem. Donec sed purus vel ex cursus venenatis. Duis maximus purus a velit pellentesque viverra. Morbi posuere faucibus rhoncus. Mauris volutpat viverra nisl in pellentesque.
+
+Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent ullamcorper faucibus odio, eget blandit quam consequat sed. In hac habitasse platea dictumst. Maecenas nec purus vel mauris tempor sagittis id non sem. Vestibulum tempus, enim nec consequat fermentum, ipsum orci finibus urna, a hendrerit risus nisi eu urna. Ut quis massa ullamcorper, accumsan ante vitae, cursus turpis. Aliquam erat volutpat. Duis sit amet purus fringilla, rhoncus elit at, consectetur nunc.
+
+\section{Cras euismod}
+Cras euismod sapien quam, non convallis mi euismod sed. Quisque dapibus orci a sem ornare, a imperdiet magna rutrum. Praesent luctus enim in pulvinar ullamcorper. Ut sem eros, tincidunt eu urna in, egestas ullamcorper leo. Suspendisse ante tortor, elementum eget libero iaculis, egestas semper ex. Etiam ut sapien accumsan nisi egestas bibendum vel a enim. Suspendisse sagittis nisl ut pharetra rutrum. Vivamus sed consectetur felis. Ut commodo erat id semper laoreet.
+
+\section{Donec fringilla}
+Donec fringilla mi feugiat vestibulum porttitor. Mauris dictum risus in diam rutrum pharetra. Nulla efficitur libero at eros pretium vestibulum. Fusce eget erat molestie, porttitor ipsum et, venenatis dui. Cras id iaculis dolor, sed mollis odio. Nunc hendrerit quam et dolor accumsan gravida. Nam sapien lacus, maximus vel semper at, feugiat in lacus. Donec suscipit in mauris vitae porta.
+
+% TODO: Thanks to Prof, Doctorate & Wireguard & Rosenpass Teams
+\begin{acks}
+I would like to express my sincere gratitude to the following individuals and teams who have contributed to the completion of this document:
+
+\begin{itemize}
+  \item Prof. Dr. Heuveline \& Mr. Machmeier for their guidance and support throughout the research and writing process.
+  \item The Wireguard \& Rosenpass teams for their respective Projects, their novice-friendly documentation, and beginner-friendly explainers.
+\end{itemize}
+
+I am truly thankful for their dedication and collaboration, which has significantly enriched the quality of this work.
+\end{acks}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{sources}
+
+% TODO: do i need an appendix?
+\appendix
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % End Document
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\setcounter{framenumber}{\totalcontentframes}
-
 \end{document}
+\endinput
