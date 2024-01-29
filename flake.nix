@@ -39,7 +39,7 @@
               command = ''
                 latexmk
                 latexmk -c
-                rm -f *.bbl *.cut
+                rm -f *.bbl *.cut *.nav *.snm
               '';
               help = "build the slides";
             }
@@ -47,7 +47,6 @@
               name = "clean";
               command = ''
                 latexmk -C
-                rm -f *.bbl *.cut
               '';
               help = "remove temporary files";
             }
