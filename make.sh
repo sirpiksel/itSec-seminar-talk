@@ -1,17 +1,15 @@
 #!/bin/sh
 
+clear
 echo "Choose a directory where the script is located:"
 
 # Get the directory where the script is located
 script_dir=$(dirname "$0")
 
 # Get the list of directories in the script's location, excluding "tex" directory
-directories=$(ls -d "$script_dir"/*/ 2>/dev/null | grep -v "$script_dir/tex/")
+directories=$(ls -d "$script_dir"/*/ 2>/dev/null | grep -vE "$script_dir/(acm-tex|rosen-tex)/")
 
 # Display the menu
-PS3="Enter the number of your choice: "
-IFS='
-'
 selected_directory=""
 index=1
 for directory in $directories; do
@@ -20,7 +18,7 @@ for directory in $directories; do
 done
 
 while true; do
-    printf "Select a directory: "
+    printf "\nSelect a directory: "
     read -r choice
     if [ "$choice" -ge 1 ] && [ "$choice" -le "$(echo "$directories" | wc -l)" ]; then
         selected_directory=$(echo "$directories" | sed -n "${choice}p")

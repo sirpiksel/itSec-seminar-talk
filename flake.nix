@@ -15,13 +15,10 @@
             overlays = [ devshell.overlays.default ];
           };
         tex = pkgs.texlive.combine {
-          inherit (pkgs.texlive)
-            scheme-basic amsfonts beamer babel-german tcolorbox emoji environ
-            ccicons csquotes csvsimple doclicense fancyvrb fontspec gobble
-            koma-script ifmtarg latexmk lm markdown mathtools minted noto
-            nunito pgf relsize soul unicode-math lualatex-math gitinfo2
-            eso-pic biblatex biblatex-trad biblatex-software xkeyval xurl
-            xifthen biber;
+          inherit (pkgs.texlive) scheme-basic
+            babel-german babel-english amsfonts doclicense environ xkeyval lm
+            beamer tcolorbox emoji ccicons csquotes csvsimple fancyvrb fontspec gobble koma-script ifmtarg latexmk markdown mathtools minted noto nunito pgf relsize soul unicode-math lualatex-math gitinfo2 eso-pic biblatex biblatex-trad biblatex-software xurl xifthen biber
+            microtype booktabs amscls amsmath kastrup preprint caption comment cm-super cmap draftwatermark etoolbox fancyhdr float fontaxes geometry graphics hyperref hyperxmp iftex inconsolata libertine mmap ms mweights natbib ncctools newtx oberdiek refcount setspace textcase totpages trimspaces upquote url xcolor xstring luacode luatexbase txfonts;
         };
 
       in
@@ -41,15 +38,18 @@
               name = "build";
               command = ''
                 latexmk
+                latexmk -c
+                rm -f *.bbl *.cut
               '';
               help = "build the slides";
             }
             {
               name = "clean";
               command = ''
-                latexmk -c
+                latexmk -C
+                rm -f *.bbl *.cut
               '';
-              help = "build the slides";
+              help = "remove temporary files";
             }
           ];
         });
