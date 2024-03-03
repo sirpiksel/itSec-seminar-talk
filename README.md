@@ -10,7 +10,8 @@ IT-Security Seminar Talk
   2024-03-31-paper / [mini Paper](./2024-03-31-paper/paper.pdf)
 
 ## Make
-to generate the PDFs, you may use the *Nix* `flake.nix` natively or install *Docker* and run:
-```
+To generate the PDFs, ensure that you have *Nix* installed on your system. Then, run the following command:
+
+```sh
 $ ./make.sh
 ```
