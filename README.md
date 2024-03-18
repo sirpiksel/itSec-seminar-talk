@@ -9,9 +9,15 @@ IT-Security Seminar Talk
   2024-01-18-talk / [Slides](./2024-01-18-talk/slides.pdf) \
   2024-03-31-paper / [mini Paper](./2024-03-31-paper/paper.pdf)
 
-## Make
-To generate the PDFs, ensure that you have *Nix* installed on your system. Then, run the following command:
-
+## Shell
+To generate the PDFs during editing, ensure that you have *Nix* installed on your system.
+Run the following command in the directory that you are editing:
 ```sh
-$ ./make.sh
+$ nix develop --extra-experimental-features "flakes nix-command"
+```
+
+## Make
+compile the final product by running the following command with "${FOLDER}" replaced by the name of the directory:
+```sh
+$ nix build .#packages.x86_64-linux.${FOLDER_NAME} --extra-experimental-features "flakes nix-command"
 ```
