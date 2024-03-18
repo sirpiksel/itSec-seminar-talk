@@ -21,12 +21,39 @@
             microtype booktabs amscls amsmath kastrup preprint caption comment cm-super cmap draftwatermark etoolbox fancyhdr float fontaxes geometry graphics hyperref hyperxmp iftex inconsolata libertine mmap ms mweights natbib ncctools newtx oberdiek refcount setspace textcase totpages trimspaces upquote url xcolor xstring luacode luatexbase txfonts;
         };
 
+      documents = (builtins.fromTOML (builtins.readFile ./documents.toml)).documents;
       in
       {
+        packages = builtins.listToAttrs (
+          builtins.map
+            ({ name, ... } @ meta:
+              {
+                inherit name;
+                value = pkgs.stdenvNoCC.mkDerivation {
+                  inherit name;
+                  srcs = [ (./. + "/${name}") ./acm-tex ./rosen-tex ];
+                  sourceRoot = "./${name}";
+                  nativeBuildInputs = with pkgs; [
+                    tex
+                  ];
+                  buildPhase = ''
+                    export HOME=$(mktemp -d)
+                    latexmk
+                  '';
+                  installPhase = ''
+                    mkdir --parent -- $out
+                    mv *.pdf $out/
+                  '';
+                  passthru = meta;
+                };
+              }
+            )
+        documents);
+
         devShells.default = (pkgs.devshell.mkShell {
           imports = [ "${devshell}/extra/git/hooks.nix" ];
           name = "itSec-seminar-talk-shell";
-          packages = with pkgs; [ tex nixpkgs-fmt nodePackages.prettier ];
+          packages = with pkgs; [ tex nixpkgs-fmt ];
           git.hooks = {
             enable = true;
             pre-commit.text = ''
@@ -47,22 +74,12 @@
               name = "clean";
               command = ''
                 latexmk -C
+                rm -f *.bbl *.cut *.nav *.snm
               '';
               help = "remove temporary files";
             }
           ];
         });
-
-        checks = {
-          nixpkgs-fmt = pkgs.runCommand "check-nixpkgs-fmt"
-            { nativeBuildInputs = [ pkgs.nixpkgs-fmt ]; } ''
-            nixpkgs-fmt --check ${./.} && touch $out
-          '';
-          prettier-check = pkgs.runCommand "check-with-prettier"
-            { nativeBuildInputs = [ pkgs.nodePackages.prettier ]; } ''
-            cd ${./.} && prettier --check . && touch $out
-          '';
-        };
       }
     );
 }
