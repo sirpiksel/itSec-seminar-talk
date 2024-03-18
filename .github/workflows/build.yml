@@ -1,0 +1,37 @@
+name: Build Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      folderName:
+        description: 'Tex Folder to Build'
+        required: true
+      ignoreLock:
+        description: 'Ignore flake.lock'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  echoInput:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Nix
+        run: sh <(curl -L https://nixos.org/nix/install) --no-daemon
+      - name: Delete Lockfile
+        if: ${{ github.event.inputs.ignoreLock }}
+        run: rm flake.lock
+      - name: Build PDF
+        run: |
+          printf '[[documents]]\nname = "'"%s"'"' "${{ github.event.inputs.folderName }}" > documents.toml
+          nix build .#packages.x86_64-linux.${{ github.event.inputs.folderName }} --extra-experimental-features "flakes nix-command"
+      - name: Upload PDF Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdfs
+          path: result/*
+          if-no-files-found: error
+          retention-days: 1
+          overwrite: true
