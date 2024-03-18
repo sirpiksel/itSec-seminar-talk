@@ -24,7 +24,6 @@ while true; do
     selected_directory=$(echo "$directories" | sed -n "${choice}p")
     cd $selected_directory || exit
     sudo nix develop --extra-experimental-features "flakes nix-command"
-    #docker run --rm -it -v "$script_dir:/workspace" -w "/workspace/$selected_directory" nixos/nix:latest nix develop --extra-experimental-features "flakes nix-command"
     cd .. || exit
     break
   else
