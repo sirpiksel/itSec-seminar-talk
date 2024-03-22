@@ -20,11 +20,10 @@
 \renewcommand{\shortauthors}{Philip Kastura-Sahl}
 
 \begin{abstract}
-% TODO: write proper abstract
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget ex ex. Etiam ultricies mi sit amet sem malesuada, nec egestas est gravida. Cras eu sagittis est. Nunc dignissim massa vel mauris varius pulvinar. Duis quis massa quis quam commodo pulvinar et ac quam. In hac habitasse platea dictumst. Nunc eu lacus mi. Donec a efficitur leo.
+  With the advance of quantum computers security researchers face the challenge of securing their data against \textit{"Harvest now, decrypt later"-attacks} that could become available in the future. Shor's algorithm\cite{Shor_1997}, when implemented on a sufficiently powerfull quantum computer, could be used to break many public-key cryptography schemes. Rosenpass aims to provide a \textit{post-quantum-secure authenticated key exchange} that works in a \textit{hybrid post-quantum security scheme} together with Wireguard. Due to the ongoing development of Post-quantum-Ciphers Rosenpass is implemented to provide hybrid post-quantum security in tandem with Wireguard.\cite{rosenpass-about}
 \end{abstract}
 
-
+%% TODO: refresh eventual tag changes
 \begin{CCSXML}
 <ccs2012>
    <concept>
@@ -56,7 +55,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget ex ex
   \includegraphics[width=\textwidth]{graphics/rosenpass+wireguard.pdf}
 \end{teaserfigure}
 
-%% TODO: add correct date for paper
 \received[Talk]{18 January 2024}
 \received[Paper]{31 March 2024}
 
@@ -66,28 +64,54 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget ex ex
 % Begin Document
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Lorem Ipsum}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget ex ex. Etiam ultricies mi sit amet sem malesuada, nec egestas est gravida. Cras eu sagittis est. Nunc dignissim massa vel mauris varius pulvinar. Duis quis massa quis quam commodo pulvinar et ac quam. In hac habitasse platea dictumst. Nunc eu lacus mi. Donec a efficitur leo.\cite{wireguard}
+\section{Introduction}
+Shor's Algorithm, developed in 1994 by Peter Shor, is one of the few known algorithms that could be used to used to break existing public key cryptography such as RSA and some Diffie-Hellman variants. With the rise of ever more powerful quantum computers security researchers are facing the possibility of traditional \textit{pre-quantum cryptography} becoming insecure. The Open Quantumn Safe Project\cite{open-quantum-safe} \& NIST\footnote{NIST -- National Institute of Standards and Technology} aim to improve and standardize \textit{post-quantum cryptography} to the point of it being able to supersede existing schemes that would be deemed insecure using sufficiently powerful quantumn computers. \\
+PQ-Wireguard\cite{cryptoeprint:2020/379} first modified Wireguard and implemented new PQ\footnote{pq -- post-quantum} forward secrecy \& pq Authentication by replacing the Diffie-Hellman handshake with a key-encapsulation mechanism\footnote{KEM -- key-encapsulation mechanism}.
 
-Mauris a sodales ligula, id dictum arcu. Morbi ante nisl, vestibulum sed mauris vitae, vestibulum efficitur lacus. Maecenas laoreet lorem quis dui posuere convallis. Curabitur ac justo vel enim dictum rutrum id et nunc. Nunc porta lacus quis odio dignissim, quis tristique libero fringilla. Cras eleifend dictum molestie. Quisque ut leo nec ipsum suscipit imperdiet lobortis et turpis. Proin eget luctus nibh. Maecenas in finibus turpis. Integer dictum felis in purus malesuada finibus.\cite{rosenpass}
+\subsection{Wireguard \& Rosenpass}
+% TLDR: What is Wireguard; What is Rosenpass
+Wireguard is a modern VPN that intends to be more performant that OpenVPN, whilst being able to run on a variety of computers and platforms\cite{Wireguard}. Rosenpass functions as an Addon to Wireguard, adding PQC\footnote{PQC -- post-quantum cryptography} whilst keeping the established security intact. Whilst some Wireguard implementations are considered complete\cite{wireguard-repos}, Rosenpass is still under development\cite{rosenpass}. Apart from implementing PQC, Rosenpass also implements a statless responder to protect against replay attacks of the first protocol message.
 
-\section{Suspendisse orci}
-Suspendisse orci purus, tincidunt sit amet metus eu, lacinia vehicula nulla. Phasellus lobortis ullamcorper mi vitae fringilla. Integer ante risus, condimentum at turpis nec, fringilla laoreet ante. Ut fringilla congue vestibulum. Cras placerat aliquet dolor, in consectetur elit dignissim id. Curabitur varius, erat et auctor cursus, urna leo ullamcorper ex, ut dictum nunc nisi eu mauris. Cras porttitor felis sed sem consectetur rhoncus nec a mauris. Curabitur mollis nisl nec purus bibendum efficitur. Integer posuere eleifend bibendum. Nulla dapibus, mauris nec consequat pulvinar, ante turpis mattis sapien, id fringilla enim diam ac nibh. Phasellus facilisis dolor ac est rhoncus, in dignissim lectus tincidunt.\cite{cryptoeprint:2020/379}
+\subsection{Problem Definition}
+% TLDR: Explain pq Computing
+Even though Quantumn Computers don't yet have a sufficient number of qubits, data could be harvested already, making it vulnerable to decryption attacks in the future, a surveillance strategy known as \textit{Harvest now, decrypt later}. Yet PQC has not yet reached the point of adoption to be replacing pre-quantum cryptography, as seen in the Post-Quantum Cryptography Standardization effort where algorithms such as SIDH have been eliminated due to major security flaws in their design\cite{cryptoeprint:2022/975}. Therefore Rosenpass has been designed to implement Hybrid PQC\cite{cryptoeprint:2022/1225}, Rosenpass providing encryption deemed the most qost-quantum resistant and working together with the known to be pre-quantumn secure Wireguard. The handshake between Wireguard and Rosenpass as well as the individual connections between Rosenpass and Wireguard Clients and Server needed to be designed in such a way that neither one of the ciphers could be broken alone so that a potential attacker would need to always attack both ciphers.
 
-\subsection{In ac malesuada}
-In ac malesuada eros. Donec eu quam nec quam commodo eleifend. Vestibulum ut ultrices tellus. Praesent varius rhoncus nisi at aliquet. Donec scelerisque, tellus quis auctor congue, mi nunc pharetra est, ut mollis orci dolor quis odio. Proin pellentesque eget quam vel tempus. Etiam viverra turpis id malesuada ultrices. Suspendisse sit amet lorem vel elit pretium sollicitudin. Suspendisse tincidunt semper urna, nec condimentum lorem consectetur ut. Aliquam elit nisl, vehicula vitae sollicitudin eget, dictum non eros.\cite{openssl-documentation}
 
-Vivamus ornare ex eget risus placerat placerat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque eu risus ut nunc bibendum rhoncus non a urna. Nam sollicitudin, nibh ut laoreet vestibulum, dui lorem semper turpis, at rhoncus nulla sem molestie erat. Nulla eget interdum sem. Donec sed purus vel ex cursus venenatis. Duis maximus purus a velit pellentesque viverra. Morbi posuere faucibus rhoncus. Mauris volutpat viverra nisl in pellentesque.\cite{arstechnica-article}\cite{cryptoeprint:2022/975}
+\section{Ciphers}
+% TLDR: NIST Difficulties with Ciphers
+The Rosenpass developers have chosen a combination of Classic McEliece and CRYSTALS-Kyber, notably finalists of the NIST Post-Quantum Cryptography Standardization effort\cite{pqc-standardization}. While symmetric ciphers are generally considered to be secure, not all asymmetric ciphers are equally vulnerable to Shor's algorithm.
 
-Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent ullamcorper faucibus odio, eget blandit quam consequat sed. In hac habitasse platea dictumst. Maecenas nec purus vel mauris tempor sagittis id non sem. Vestibulum tempus, enim nec consequat fermentum, ipsum orci finibus urna, a hendrerit risus nisi eu urna. Ut quis massa ullamcorper, accumsan ante vitae, cursus turpis. Aliquam erat volutpat. Duis sit amet purus fringilla, rhoncus elit at, consectetur nunc.\cite{pqc-standardization}
+\subsection{KEM vs. NIKE}
+% TLDR: What is KEM; What is NIKE; Why do we use NIKE?
+Established asymmetric ciphers \textit{Non-Interactive Key Exchange}, as the name implies, this enables two parties to know each others public keys and agree on a symmetric shared key without requiring any interaction\cite{cryptoeprint:2012/732}. While a NIKE\footnote{NIKE -- Non-Interactive Key Exchange} is not inherently insecure against attacks by quantum computers, PQC usually relies on a \textit{Key encapsulation mechanism}. KEMs\footnote{KEM -- Key encapsulation mechanism} are considered a more viable solution, because they are able to provide both pq-resistance as well as today's security guarantees. Hybrid PQC can be implemented using KEMs by using a combiner, which enables the use of multiple algorithms while keeping the scheme secure as long as one of the algorithms remains secure\cite{cryptoeprint:2012/732}.
 
-\section{Cras euismod}
-Cras euismod sapien quam, non convallis mi euismod sed. Quisque dapibus orci a sem ornare, a imperdiet magna rutrum. Praesent luctus enim in pulvinar ullamcorper. Ut sem eros, tincidunt eu urna in, egestas ullamcorper leo. Suspendisse ante tortor, elementum eget libero iaculis, egestas semper ex. Etiam ut sapien accumsan nisi egestas bibendum vel a enim. Suspendisse sagittis nisl ut pharetra rutrum. Vivamus sed consectetur felis. Ut commodo erat id semper laoreet.\cite{cryptoeprint:2022/1225}
+%\subsection{Classic McElice}
+%% TLDR: Explain Classic McElice
+% Classic McEliece uses \textit{goppa codes}
 
-\section{Donec fringilla}
-Donec fringilla mi feugiat vestibulum porttitor. Mauris dictum risus in diam rutrum pharetra. Nulla efficitur libero at eros pretium vestibulum. Fusce eget erat molestie, porttitor ipsum et, venenatis dui. Cras id iaculis dolor, sed mollis odio. Nunc hendrerit quam et dolor accumsan gravida. Nam sapien lacus, maximus vel semper at, feugiat in lacus. Donec suscipit in mauris vitae porta.\cite{cryptoeprint:2016/1017}
+\subsection{Kyper}
+% TLDR: Explain Kyper
+\textit{Lattice-based ciphers} such as CRYSTALS-Kyber
 
-% TODO: Thanks to Prof, Doctorate & Wireguard & Rosenpass Teams
+
+\section{Implementation}
+% TLDR: Rough explainer how Rosenpass is developed along Wireguard
+
+\subsection{Proof}
+% TLDR: State of Mathematical Proof; Proof only written using Pseudocode?
+
+\subsection{Key Exchange}
+% TLDR: Explain Key Exchange
+
+\subsection{Wireguard-Rosenpass Handshake}
+% TLDR: Explain Handshake
+
+
+\section{Conclusion}
+% TLDR: Conclude with Usability and Provability; Security of KEMs???
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{acks}
 I would like to express my sincere gratitude to the following individuals and teams who have contributed to the completion of this document:
 
@@ -99,10 +123,11 @@ I would like to express my sincere gratitude to the following individuals and te
 I am truly thankful for their dedication and collaboration, which has significantly enriched the quality of this work.
 \end{acks}
 
+%% TODO: refresh accessed citations
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{sources}
 
-% TODO: do i need an appendix?
+%% TODO: Use Appendix if there are reused Definitions
 %\appendix
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
