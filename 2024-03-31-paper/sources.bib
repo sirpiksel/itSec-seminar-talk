@@ -33,13 +33,13 @@
   url = {https://eprint.iacr.org/2020/379}
 }
 
-@online{Wireguard,
+@online{WireGuard,
   title={WireGuard: Next Generation Kernel Network Tunnel},
   url={https://www.ndss-symposium.org/ndss2017/ndss-2017-programme/wireguard-next-generation-kernel-network-tunnel/},
   note={[Accessed 10.03.2024]}
 }
 
-@online{wireguard-repos,
+@online{wg-repos,
   title={Wireguard: Source Code Repositories and Official Projects},
   url={https://www.wireguard.com/repositories/},
   note={[Accessed 10.03.2024]}
@@ -77,10 +77,97 @@
 }
 
 @misc{cryptoeprint:2012/732,
-      author = {Eduarda S. V.  Freire and Dennis Hofheinz and Eike Kiltz and Kenneth G.  Paterson},
-      title = {Non-Interactive Key Exchange},
-      howpublished = {Cryptology ePrint Archive, Paper 2012/732},
-      year = {2012},
-      note = {\url{https://eprint.iacr.org/2012/732}},
-      url = {https://eprint.iacr.org/2012/732}
+  author = {Eduarda S. V.  Freire and Dennis Hofheinz and Eike Kiltz and Kenneth G.  Paterson},
+  title = {Non-Interactive Key Exchange},
+  howpublished = {Cryptology ePrint Archive, Paper 2012/732},
+  year = {2012},
+  note = {\url{https://eprint.iacr.org/2012/732}},
+  url = {https://eprint.iacr.org/2012/732}
+}
+
+@misc{cryptoeprint:2018/903,
+  author = {Nina Bindel and Jacqueline Brendel and Marc Fischlin and Brian Goncalves and Douglas Stebila},
+  title = {Hybrid Key Encapsulation Mechanisms and Authenticated Key Exchange},
+  howpublished = {Cryptology ePrint Archive, Paper 2018/903},
+  year = {2018},
+  doi = {10.1007/978-3-030-25510-7_12},
+  note = {\url{https://eprint.iacr.org/2018/903}},
+  url = {https://eprint.iacr.org/2018/903}
+}
+
+@ARTICLE{1055873,
+  author={Berlekamp, E. and McEliece, R. and van Tilborg, H.},
+  journal={IEEE Transactions on Information Theory},
+  title={On the inherent intractability of certain coding problems (Corresp.)},
+  year={1978},
+  volume={24},
+  number={3},
+  pages={384-386},
+  keywords={},
+  doi={10.1109/TIT.1978.1055873}
+}
+
+@article{10.1145/1568318.1568324,
+  author = {Regev, Oded},
+  title = {On lattices, learning with errors, random linear codes, and cryptography},
+  year = {2009},
+  issue_date = {September 2009},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  volume = {56},
+  number = {6},
+  issn = {0004-5411},
+  url = {https://doi.org/10.1145/1568318.1568324},
+  doi = {10.1145/1568318.1568324},
+  abstract = {Our main result is a reduction from worst-case lattice problems such as GapSVP and SIVP to a certain learning problem. This learning problem is a natural extension of the “learning from parity with error” problem to higher moduli. It can also be viewed as the problem of decoding from a random linear code. This, we believe, gives a strong indication that these problems are hard. Our reduction, however, is quantum. Hence, an efficient solution to the learning problem implies a quantum algorithm for GapSVP and SIVP. A main open question is whether this reduction can be made classical (i.e., nonquantum).We also present a (classical) public-key cryptosystem whose security is based on the hardness of the learning problem. By the main result, its security is also based on the worst-case quantum hardness of GapSVP and SIVP. The new cryptosystem is much more efficient than previous lattice-based cryptosystems: the public key is of size \~{O}(n2) and encrypting a message increases its size by a factor of \~{O}(n) (in previous cryptosystems these values are \~{O}(n4) and \~{O}(n2), respectively). In fact, under the assumption that all parties share a random bit string of length \~{O}(n2), the size of the public key can be reduced to \~{O}(n).},
+  journal = {J. ACM},
+  month = {sep},
+  articleno = {34},
+  numpages = {40},
+  keywords = {quantum computation, public key encryption, cryptography, average-case hardness, Lattice}
+}
+
+@article{doi:10.1137/070705702,
+  author = {Nguyen, Phong Q. and Stehl\'{e}, Damien},
+  title = {An LLL Algorithm with Quadratic Complexity},
+  journal = {SIAM Journal on Computing},
+  volume = {39},
+  number = {3},
+  pages = {874-903},
+  year = {2009},
+  doi = {10.1137/070705702},
+  URL = {https://doi.org/10.1137/070705702},
+  eprint = {https://doi.org/10.1137/070705702},
+  abstract = { The Lenstra–Lenstra–Lovász lattice basis reduction algorithm (called LLL or \${\rm L}^3\$) is a fundamental tool in computational number theory and theoretical computer science, which can be viewed as an efficient algorithmic version of Hermite's inequality on Hermite's constant. Given an integer d-dimensional lattice basis with vectors of Euclidean norm less than B in an n-dimensional space, the \${\rm L}^3\$ algorithm outputs a reduced basis in \$O(d^3n\,{\rm log}\,B\cdot\mathcal{M}(d\,{\rm log}\,B))\$ bit operations, where \$\mathcal{M}(k)\$ denotes the time required to multiply k-bit integers. This worst-case complexity is problematic for applications where d or/and \${\rm log}\,B\$ are often large. As a result, the original \${\rm L}^3\$ algorithm is almost never used in practice, except in tiny dimension. Instead, one applies floating-point variants where the long-integer arithmetic required by Gram–Schmidt orthogonalization is replaced by floating-point arithmetic. Unfortunately, this is known to be unstable in the worst case: the usual floating-point \${\rm L}^3\$ algorithm is not even guaranteed to terminate, and the output basis may not be \${\rm L}^3\$-reduced at all. In this article, we introduce the \${\rm L}^2\$ algorithm, a new and natural floating-point variant of the \${\rm L}^3\$ algorithm which provably outputs \${\rm L}^3\$-reduced bases in polynomial time \$O(d^2n(d+{\rm log}\,B)\,{\rm log}\,B\cdot\mathcal{M}(d))\$. This is the first \${\rm L}^3\$ algorithm whose running time (without fast integer arithmetic) provably grows only quadratically with respect to \${\rm log}\,B\$, like Euclid's gcd algorithm and Lagrange's two-dimensional algorithm. }
+}
+
+@misc{915326,
+  author = {Gorjan Alagic and David Cooper and Quynh Dang and Thinh Dang and John M. Kelsey and Jacob Lichtinger and Yi-Kai Liu and Carl A. Miller and Dustin Moody and Rene Peralta and Ray Perlner and Angela Robinson and Daniel Smith-Tone and Daniel Apon},
+  title = {Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process},
+  year = {2022},
+  month = {2022-07-05 04:07:00},
+  publisher = {NIST Interagency/Internal Report (NISTIR), National Institute of Standards and Technology, Gaithersburg, MD},
+  url = {https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=934458},
+  doi = {https://doi.org/10.6028/NIST.IR.8413},
+  language = {en},
+}
+
+@article{10.1145/2535925,
+  author = {Lyubashevsky, Vadim and Peikert, Chris and Regev, Oded},
+  title = {On Ideal Lattices and Learning with Errors over Rings},
+  year = {2013},
+  issue_date = {November 2013},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  volume = {60},
+  number = {6},
+  issn = {0004-5411},
+  url = {https://doi.org/10.1145/2535925},
+  doi = {10.1145/2535925},
+  abstract = {The “learning with errors” (LWE) problem is to distinguish random linear equations, which have been perturbed by a small amount of noise, from truly uniform ones. The problem has been shown to be as hard as worst-case lattice problems, and in recent years it has served as the foundation for a plethora of cryptographic applications. Unfortunately, these applications are rather inefficient due to an inherent quadratic overhead in the use of LWE. A main open question was whether LWE and its applications could be made truly efficient by exploiting extra algebraic structure, as was done for lattice-based hash functions (and related primitives).We resolve this question in the affirmative by introducing an algebraic variant of LWE called ring-LWE, and proving that it too enjoys very strong hardness guarantees. Specifically, we show that the ring-LWE distribution is pseudorandom, assuming that worst-case problems on ideal lattices are hard for polynomial-time quantum algorithms. Applications include the first truly practical lattice-based public-key cryptosystem with an efficient security reduction; moreover, many of the other applications of LWE can be made much more efficient through the use of ring-LWE.},
+  journal = {J. ACM},
+  month = {nov},
+  articleno = {43},
+  numpages = {35},
+  keywords = {quantum computation, public key encryption, cryptography, average-case hardness, Lattice}
 }
