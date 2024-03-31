@@ -110,11 +110,11 @@ The Rosenpass Team provides a symbolic analysis using the \textit{proverif} tool
 %\subsection{Audit}
 
 \subsection{Key Exchange}
-The Rosenpass Handshake works much like the traditional WireGuard handshake, needing to be refreshed every 2 minutes. Apart from using PQC, it differentiates itself by ensuring Non-Interruptibility through the use of a \textit{Biscuit}. WireGuard provides Non-Interruptibility by including a Timestamp, the Rosenpass Team has wrapped the \textit{Responder State} inside a Cookie, dubbed \textit{Biscuit}. \\
+The Rosenpass Handshake works much like the traditional WireGuard handshake, needing to be refreshed every 2 minutes. Apart from using PQC, it differentiates itself by ensuring Non-Interruptibility through the use of a \textit{Biscuit}. WireGuard provides Non-Interruptibility by including a Timestamp, the Rosenpass Team has wrapped the \textit{Responder State} inside a Cookie, dubbed \textit{Biscuit}\cite{rosenpass}. \\
 For a visualization, see \ref{appendix:exchange}.
 
 \subsection{WireGuard-Rosenpass Handshake}
-The Handshake between WireGuard and Rosenpass ensures that the Connection remains secure at all times. When the connection between WireGuard and its Client gets disconnected the entire communication naturally breaks down, Rosenpass is implemented to provide a \textit{PSK} to WireGuard. When the Rosenpass Handshake fails, the PSK upon which WireGuard depends when working together with Rosenpass gets corrupted, prompting WireGuard to pause any communication, until both Handshakes work again.\\
+The Handshake between WireGuard and Rosenpass ensures that the Connection remains secure at all times. When the connection between WireGuard and its Client gets disconnected the entire communication naturally breaks down, Rosenpass is implemented to provide a \textit{PSK} to WireGuard. When the Rosenpass Handshake fails, the PSK upon which WireGuard depends when working together with Rosenpass gets corrupted, prompting WireGuard to pause any communication, until both Handshakes work again\cite{rosenpass}.\\
 For a visualization, see \ref{appendix:handshake}.
 
 
