@@ -1,4 +1,5 @@
 .idea
 result
 */*.pdf
+!manual/*.pdf
 .DS_Store
